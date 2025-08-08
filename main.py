@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, send_file, flash
+from dotenv import load_dotenv
+load_dotenv()
 import os
 import requests
 import zipfile
@@ -8,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = "secret-key"  
 
 SAVE_FOLDER = 'images'
-SERPAPI_KEY = "4fe86ee6f0083c279d0b73049663eb161b6b51043eb5064c54f76ed745211e3a"  
+SERPAPI_KEY = os.getenv("SERPAPI_KEY")
 
 if not os.path.exists(SAVE_FOLDER):
     os.mkdir(SAVE_FOLDER)
