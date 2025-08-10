@@ -58,3 +58,7 @@ h1.text-center.mb-4 {
   border-radius: 8px;         /* optional, rounded corners */
   color: var(--text-color);   /* keep your text color */
 }
+
+.card {
+  background-color: #b5c99a;
+}
