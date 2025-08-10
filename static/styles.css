@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+:root {
+    --gui-bg: #c6c6c6;
+    --slot-bg: #8b8b8b;
+    --slot-border-inset: #555555;
+    --slot-border-outset: #ffffff;
+    --text-color: #404040;
+}
+
+
+body {
+  background-image: url('/static/assets/background.png');
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+}
+
+
+form {
+  background-color: var(--gui-bg);
+  color: var(--text-color);
+  font-family: 'Press Start 2P', cursive;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+form input,
+form label,
+form button {
+  font-family: 'Press Start 2P', cursive;
+}
+
+input.form-control {
+  background-color: var(--slot-bg);
+  border: 1px solid var(--slot-border-inset);
+  color: var(--text-color);
+}
+
+input.form-control:focus {
+  border-color: var(--slot-border-outset);
+  outline: none;
+}
