@@ -23,7 +23,7 @@ body {
 
 
 form {
-  background-color: var(--gui-bg);
+  background-color: #d4edda;
   color: var(--text-color);
   font-family: 'Press Start 2P', cursive;
   padding: 20px;
