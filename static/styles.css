@@ -52,3 +52,9 @@ h1 {
   color: var(--text-color);
 }
 
+h1.text-center.mb-4 {
+  background-color: #b5c99a;  /* pastel green */
+  padding: 20px;              /* add some spacing */
+  border-radius: 8px;         /* optional, rounded corners */
+  color: var(--text-color);   /* keep your text color */
+}
