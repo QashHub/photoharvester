@@ -40,18 +40,37 @@ def index():
             "api_key": SERPAPI_KEY
         }
         response = requests.get("https://serpapi.com/search", params=params).json()
-        images_results = response.get("images_results", [])[:num_images]
+        images_results = response.get("images_results", [])
 
         if not images_results:
             flash("No images found. Try another search term.", "danger")
             return render_template("index.html")
 
-        for i, img in enumerate(images_results):
-            img_url = img.get("original")
-            if img_url:
-                img_data = requests.get(img_url).content
-                with open(f"{SAVE_FOLDER}/{query}_{i+1}.jpg", "wb") as f:
+        saved_count = 0
+        i = 0
+
+        # Keep trying images until we get the number requested
+        while saved_count < num_images and i < len(images_results):
+            img_url = images_results[i].get("original")
+            i += 1
+            if not img_url:
+                continue
+            try:
+                img_data = requests.get(img_url, timeout=5).content
+                # Skip tiny or empty images
+                if len(img_data) < 1024:
+                    continue
+                with open(f"{SAVE_FOLDER}/{query}_{saved_count+1}.jpg", "wb") as f:
                     f.write(img_data)
+                saved_count += 1
+            except:
+                continue
+
+        if saved_count == 0:
+            flash("Could not download any images. Try another search term.", "danger")
+            return render_template("index.html")
+        elif saved_count < num_images:
+            flash(f"Only {saved_count} images could be downloaded.", "warning")
 
         # Zip images
         zip_buffer = BytesIO()
@@ -63,6 +82,7 @@ def index():
         return send_file(zip_buffer, as_attachment=True, download_name=f"{query}_images.zip")
 
     return render_template("index.html")
+
 
 
 if __name__ == "__main__":
